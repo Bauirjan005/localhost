@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About &bull; Localhost HTTP/1.1 Engine</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-badge">L</div>
+                <div>
+                    <div class="logo-text">Localhost</div>
+                    <div class="logo-tag">Architecture &amp; Docs</div>
+                </div>
+            </div>
+            <nav>
+                <a href="/">Overview</a>
+                <a href="/session">Sessions &amp; Cookies</a>
+                <a href="/files/">Directory Listing</a>
+                <a href="/upload/">Uploads</a>
+                <a href="/about.html" class="active">About</a>
+            </nav>
+        </header>
+
+        <section class="hero" style="padding-bottom: 2rem;">
+            <h1>Architectural Overview</h1>
+            <p>Localhost is an event-driven HTTP/1.1 server implemented in Rust without third-party web frameworks, following strict Unix and RFC standards.</p>
+        </section>
+
+        <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-lg); padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="color: var(--primary); margin-bottom: 1rem;">Core Design Principles</h2>
+            <ul style="color: var(--text-muted); line-height: 1.8; margin-left: 1.5rem; margin-bottom: 2rem;">
+                <li><strong>Single Thread &amp; Single Process:</strong> The main event loop runs on a single thread utilizing non-blocking system I/O (epoll on Linux, WSAPoll on Windows).</li>
+                <li><strong>No Crash Guarantee:</strong> Robust error propagation via Rust's <code>Result</code> type with zero unhandled unwraps on network sockets.</li>
+                <li><strong>Request Timeout Management:</strong> Inactive or slow clients are timed out gracefully (HTTP 408) to preserve server resources.</li>
+                <li><strong>Multi-Port Multiplexing:</strong> Listens simultaneously across multiple TCP ports and maps requests using virtual hosting rules.</li>
+                <li><strong>Chunked Transfer Decoding:</strong> Full RFC 7230 §4.1 compliant parser handling unchunked and chunked payloads.</li>
+                <li><strong>Common Gateway Interface (CGI):</strong> Spawns child processes passing standard environment variables and piping request bodies via stdin EOF.</li>
+            </ul>
+
+            <h2 style="color: var(--secondary); margin-bottom: 1rem;">Supported HTTP Methods</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                The server supports <code>GET</code>, <code>POST</code>, and <code>DELETE</code> methods. Non-allowed methods on specific routes automatically trigger a <code>405 Method Not Allowed</code> response containing the RFC-compliant <code>Allow</code> header.
+            </p>
+
+            <a href="/" class="btn">&larr; Back to Dashboard</a>
+        </div>
+
+        <footer>
+            <p>Localhost HTTP/1.1 Server &bull; Written in Rust for 01-Edu</p>
+        </footer>
+    </div>
+</body>
+</html>

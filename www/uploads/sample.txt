@@ -1,0 +1,2 @@
+This is a sample uploaded file stored in ./www/uploads/
+It can be retrieved via GET /upload/sample.txt or deleted via DELETE /upload/sample.txt

@@ -1,0 +1,14 @@
+{
+  "server": "localhost",
+  "version": "1.0.0",
+  "protocol": "HTTP/1.1",
+  "features": [
+    "Single-Threaded Event Loop",
+    "epoll / WSAPoll Multiplexing",
+    "Non-Blocking Sockets",
+    "Chunked Transfer Encoding",
+    "CGI Python & Shell Support",
+    "Multi-Port Listening",
+    "Cookies & Sessions"
+  ]
+}

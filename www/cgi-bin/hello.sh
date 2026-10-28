@@ -1,0 +1,10 @@
+#!/bin/bash
+echo -ne "Status: 200 OK\r\n"
+echo -ne "Content-Type: text/plain; charset=utf-8\r\n\r\n"
+echo "=== Shell CGI Execution ==="
+echo "Script Argument 1: $1"
+echo "REQUEST_METHOD: $REQUEST_METHOD"
+echo "QUERY_STRING: $QUERY_STRING"
+echo "PATH_INFO: $PATH_INFO"
+echo "REMOTE_ADDR: $REMOTE_ADDR"
+echo "Current Directory: $(pwd)"

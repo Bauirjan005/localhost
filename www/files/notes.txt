@@ -1,0 +1,3 @@
+Welcome to the /files/ directory!
+This directory demonstrates automatic directory listing (autoindex).
+When autoindex is enabled on a route without a default index file, the server returns an interactive HTML directory browser.

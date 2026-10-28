@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Localhost &bull; High-Performance HTTP/1.1 Server</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Header -->
+        <header>
+            <div class="logo-container">
+                <div class="logo-badge">L</div>
+                <div>
+                    <div class="logo-text">Localhost</div>
+                    <div class="logo-tag">Rust HTTP/1.1 Server</div>
+                </div>
+            </div>
+            <nav>
+                <a href="/" class="active">Overview</a>
+                <a href="/session">Sessions &amp; Cookies</a>
+                <a href="/files/">Directory Listing</a>
+                <a href="/upload/">Uploads</a>
+                <a href="/about.html">About</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-pill">
+                <span class="dot"></span> Single-Threaded Event Loop Active &bull; Non-Blocking I/O
+            </div>
+            <h1>A Pure Rust HTTP/1.1 Engine Built From Scratch</h1>
+            <p>Designed for reliability, RFC compliance, and extreme performance under siege. Multiplexed via epoll / WSAPoll with zero external framework dependencies.</p>
+
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="num">1</span>
+                    <span class="lbl">Thread / Process</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="num">100%</span>
+                    <span class="lbl">Non-Blocking I/O</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="num">&ge; 99.5%</span>
+                    <span class="lbl">Siege Availability</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="num">HTTP/1.1</span>
+                    <span class="lbl">Chunked &amp; Keep-Alive</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Showcase & Interactive Grid -->
+        <div class="grid">
+            <!-- Card 1: File Upload Engine -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-blue">&#128229;</div>
+                    <div>
+                        <h2>File Upload Engine</h2>
+                        <span style="font-size: 0.8rem; color: var(--text-dark);">POST multipart/form-data &amp; raw binary</span>
+                    </div>
+                </div>
+                <p>Upload files seamlessly via RFC 7578 multipart streams or raw chunked request bodies directly into configured upload directories.</p>
+                
+                <form id="ajax-upload-form">
+                    <div class="input-group">
+                        <label for="upload-file-input">Select File to Upload:</label>
+                        <input type="file" id="upload-file-input" required>
+                    </div>
+                    <button type="submit" class="btn">Upload via Multipart POST</button>
+                </form>
+
+                <div style="margin-top: 1.25rem;">
+                    <div class="input-group">
+                        <label for="raw-filename">Or Quick Raw Upload:</label>
+                        <input type="text" id="raw-filename" placeholder="sample.txt" value="note.txt">
+                    </div>
+                    <div class="input-group" style="margin-top: 0.5rem;">
+                        <input type="text" id="raw-content" placeholder="Content text..." value="Created with Localhost Server!">
+                    </div>
+                    <button id="raw-upload-btn" class="btn btn-secondary" style="margin-top: 0.75rem; width: 100%;">Upload Raw Body</button>
+                </div>
+
+                <div id="upload-output" class="terminal-box">Ready for file uploads...</div>
+            </div>
+
+            <!-- Card 2: Interactive DELETE Method -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-rose">&#128465;</div>
+                    <div>
+                        <h2>DELETE Method Tester</h2>
+                        <span style="font-size: 0.8rem; color: var(--text-dark);">RFC 7231 §4.3.5 Implementation</span>
+                    </div>
+                </div>
+                <p>Verify deletion of resources on the server. Safely tests deletion restrictions, 404s for missing resources, and permission validations.</p>
+                
+                <div class="input-group">
+                    <label for="delete-path">Target File URL Path:</label>
+                    <input type="text" id="delete-path" value="/upload/note.txt" placeholder="/upload/filename.ext">
+                </div>
+                <div style="margin-top: 1rem;">
+                    <button id="delete-btn" class="btn btn-danger" style="width: 100%;">Execute HTTP DELETE</button>
+                </div>
+
+                <div id="delete-output" class="terminal-box">Ready for DELETE requests...</div>
+            </div>
+
+            <!-- Card 3: CGI Script Execution -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-emerald">&#9881;</div>
+                    <div>
+                        <h2>CGI Gateway (Python)</h2>
+                        <span style="font-size: 0.8rem; color: var(--text-dark);">Child Process with PATH_INFO</span>
+                    </div>
+                </div>
+                <p>Executes scripts dynamically based on file extensions (.py, .sh). Injects standard CGI 1.1 environment variables with timeout guards.</p>
+                
+                <div class="input-group">
+                    <label for="cgi-query">Query String Arguments:</label>
+                    <input type="text" id="cgi-query" value="user=auditor&amp;mode=test" placeholder="param1=val1&amp;param2=val2">
+                </div>
+                <div style="margin-top: 1rem;" class="btn-group">
+                    <button id="run-cgi-btn" class="btn" style="flex: 1;">Run Python CGI</button>
+                    <a href="/cgi-bin/test.py" target="_blank" class="btn btn-secondary">Open Directly</a>
+                </div>
+
+                <div id="cgi-output" class="terminal-box">Click "Run Python CGI" to execute...</div>
+            </div>
+
+            <!-- Card 4: Cookies & Sessions -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-purple">&#127850;</div>
+                    <div>
+                        <h2>Cookie &amp; Session Store</h2>
+                        <span style="font-size: 0.8rem; color: var(--text-dark);">Stateful Tracking over Stateless HTTP</span>
+                    </div>
+                </div>
+                <p>Maintains in-memory sessions with secure HTTP cookies (<code>Set-Cookie: session_id=...; HttpOnly</code>) and automated eviction.</p>
+
+                <p>Explore the live interactive session demo with visit counters, session login, and logout capabilities.</p>
+                <div class="btn-group">
+                    <a href="/session" class="btn">Launch Session Console &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Card 5: Autoindex Directory Listing -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-amber">&#128193;</div>
+                    <div>
+                        <h2>Autoindex Listing</h2>
+                        <span style="font-size: 0.8rem; color: var(--text-dark);">Nginx-Style Directory Browser</span>
+                    </div>
+                </div>
+                <p>When configured with <code>autoindex on</code> and no default index file exists, the server dynamically generates an HTML file directory listing.</p>
+
+                <div class="btn-group">
+                    <a href="/files/" class="btn">Browse /files/ Directory &rarr;</a>
+                    <a href="/upload/" class="btn btn-secondary">Browse /upload/ &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Card 6: HTTP Redirections & Errors -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-rose">&#9888;</div>
+                    <div>
+                        <h2>Redirections &amp; Error Pages</h2>
+                        <span style="font-size: 0.8rem; color: var(--text-dark);">3xx Redirection &amp; 4xx/5xx Pages</span>
+                    </div>
+                </div>
+                <p>Inspect custom and rich default error pages configured in the server:</p>
+
+                <div class="badge-grid">
+                    <a href="/redirect-me" class="badge-link">301 Redirect</a>
+                    <a href="/does-not-exist-404" class="badge-link">404 Not Found</a>
+                    <a href="/www/" class="badge-link">403 Forbidden</a>
+                    <a href="/about.html" class="badge-link">About Page</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Localhost HTTP/1.1 Server &bull; Written in Rust for 01-Edu &bull; Single-Threaded Non-Blocking Architecture</p>
+        </footer>
+    </div>
+</body>
+</html>
